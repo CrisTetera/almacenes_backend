@@ -1,0 +1,99 @@
+Boleta
+
+DTE => [
+    Enzabezado => [
+        IdDoc => [
+            TipoDTE, (39 => Boleta)
+            Folio,
+            FchEmis,
+            IndServicio,
+        ]
+        Emisor => [
+            RUTEmisor,
+            RznSocEmisor,
+            GiroEmisor,
+            DirOrigen,
+            CmnaOrigen,
+            CdgSIISucur
+        ],
+        Receptor => [
+            RUTRecep,
+        ],
+        Totales => [
+            MntTotal,
+        ]
+    ],
+    Detalle => [
+        [ (Loop)
+            "IndExe": 1, (?) (Exento)
+            NroLinDte,
+            NmbItem,
+            QtyItem,
+            PrcItem,
+            MontoItem,
+            DescuentoPct, (?) ( Descuento item )
+            DescuentoMonto, (?) ( Descuento item )
+        ],
+    ],
+    DctRcgGlobal (?) => { (Descuento Global)
+        TpoMov,
+        TpoValor,
+        ValorDR,
+    }
+
+]
+
+Factura
+
+DTE => [
+    Enzabezado => [
+        IdDoc => [
+            TipoDTE, (33 => Factura afecta | 34 => Factura Excenta)
+            Folio,
+            FchEmis,
+            IndServicio,
+        ]
+        Emisor => [
+            RUTEmisor,
+            RznSocEmisor,
+            GiroEmisor,
+            DirOrigen,
+            CmnaOrigen,
+            CdgSIISucur
+        ],
+        Receptor => [
+            RUTRecep,
+            RznSocRecep,
+            GiroRecep,
+            DirRecep,
+            CmnaRecep,
+        ],
+        Totales => [
+            IVA,
+            MntTotal,
+            MtoNeto, (?) Afecto
+            TasaIva, (?) Afecto
+            MtoExe, (?) Exento
+            MontoPeriodo, (?) Exento
+            VlrPagar, (?) Exento
+        ]
+    ],
+    Detalle => [
+        [ (Loop)
+            "IndExe": 1, (?) (Exento)
+            NroLinDte,
+            NmbItem,
+            QtyItem,
+            PrcItem,
+            MontoItem,
+            DescuentoPct, (?) ( Descuento item )
+            DescuentoMonto, (?) ( Descuento item )
+        ],
+    ],
+    DctRcgGlobal (?) => [ (Descuento Global)
+        TpoMov,
+        TpoValor,
+        ValorDR,
+    ],
+
+]

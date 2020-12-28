@@ -1,0 +1,37 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+
+class CreatePosDetailSaleNoteTable extends Migration {
+
+	/**
+	 * Run the migrations.
+	 *
+	 * @return void
+	 */
+	public function up()
+	{
+		Schema::create('pos_detail_sale_note', function(Blueprint $table)
+		{
+			$table->increments('id');
+			$table->integer('pos_sale_note_id')->index('sl_sale_note_sl_detail_sale_note_fk');
+			$table->decimal('discount_or_charge', 10);
+			$table->decimal('subtotal', 10);
+			$table->boolean('flag_delete')->default(0);
+			$table->timestamps();
+		});
+	}
+
+
+	/**
+	 * Reverse the migrations.
+	 *
+	 * @return void
+	 */
+	public function down()
+	{
+		Schema::drop('pos_detail_sale_note');
+	}
+
+}

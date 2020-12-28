@@ -1,0 +1,37 @@
+<?php
+
+namespace Modules\Sale\Services\SlOfferPos;
+
+use Illuminate\Http\Request;
+use App\Http\Response\CustomResponse;
+use Modules\Sale\Entities\SlOfferPos;
+
+use DB;
+class MassiveDeleteSlOfferService
+{
+    /**
+     * Massive delete of SlOffer of sl_offer index array
+     * 
+     * @param \Illuminate\Http\Request
+     * @return array
+     */
+    public function massiveDeleteSlOffer(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            foreach($request->sl_offers as $slOfferId) {
+                SlOfferPos::where('id', $slOfferId)->update([
+                    'flag_delete' => true,
+                ]);
+            } // end foreach
+
+            DB::commit();
+
+            return CustomResponse::ok();
+        } catch(\Exception $e) {
+            DB::rollBack();
+            return CustomResponse::error($e);
+        }
+    } // end function
+    
+} // end class
